@@ -1,0 +1,59 @@
+variables:
+
+  Environment.Name:  $[upper(variables['environment'])]
+  developmentEnvironment: 'dev'
+
+# FUNCTION NAMING CONVENTIONS
+  nc-function-web: WEB
+  nc-function-web-lower: $[lower(variables['nc-function-web'])]
+  nc-function-infrastructure: INF
+  nc-function-infrastructure-lower: $[lower(variables['nc-function-infrastructure'])]
+  nc-function-network: NET
+  nc-function-database: DBS
+  nc-function-soc: SOC
+  nc-function-development: DEV
+  nc-function-development-lower: $[lower(variables['nc-function-development'])]
+
+# RESOURCE NAMING CONVENTIONS
+  nc-resource-webapp: AW
+  nc-resource-webapp-lower: $[lower(variables['nc-resource-webapp'])]
+  nc-resource-functionapp: AF
+  nc-resource-appserviceplan: AS
+  nc-resource-keyvault: KV
+  nc-resource-servicebus: SB
+  nc-resource-subnet: SU
+  nc-resource-resourcegroup: RG
+  nc-resource-virtualnetwork: VN
+  nc-resource-appinsights: AI
+  nc-resource-nsg: NS
+  nc-resource-sqlserver: SQ
+  nc-resource-sql-failovergroup: FG
+  nc-resource-storageaccount: SA
+  nc-resource-storageaccount-lower: $[lower(variables['nc-resource-storageaccount'])]
+  nc-resource-datalake: DL
+  nc-resource-datalake-lower: $[lower(variables['nc-resource-datalake'])]
+  nc-resource-appgateway: AG
+  nc-resource-publicip: PU
+  nc-resource-apimanagement: AM
+  nc-resource-law: LA
+  nc-resource-trafficmanager: TM
+  nc-resource-privateendpoint: PE
+  nc-resource-privatelinkservice: PL
+  nc-resource-containerregistry: CR
+  nc-resource-logicapps: LA
+  nc-resource-synapse: AS
+  nc-resource-synapse-lower: $[lower(variables['nc-resource-synapse'])]
+  nc-resource-azuresearch: SE
+  nc-resource-azuresearch-lower: $[lower(variables['nc-resource-azuresearch'])]
+  nc-resource-devtestlabs: LB
+  nc-resource-appconfiguration: AC
+  nc-resource-cosmosdb: CO
+  nc-resource-cosmosdb-lower: $[lower(variables['nc-resource-cosmosdb'])]
+  nc-resource-dashboard: SD
+  nc-resource-virtualmachinescaleset: VMSS
+  nc-resource-eventhub: EN
+  nc-resource-managedidentity: MID
+  nc-resource-signalr: SR
+
+# Authentication / Common AAD URLs
+  authenticationUrl: https://login.microsoftonline.com/

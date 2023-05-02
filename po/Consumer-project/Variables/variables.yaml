@@ -1,0 +1,24 @@
+variables:
+  repositoryName: DeploymentEngine
+  zipFileName: "integration.zip"
+  productName: "BuildArtifacts"
+  project: "POC-Training"
+  buildConfiguration: "Release"
+  azureSubscription_DEV: "genericTool"
+  azureSubscription_TST: "genericTool"
+  azureSubscription_SIT: "genericTool"
+  azureSubscription_UR: "genericTool"
+  azureSubscription_UAT: "genericTool"
+  azureSubscription_PRE: "genericTool"
+  azureSubscription_PRD: "genericTool"
+  resourceGroup_DEV: "generictoolne-DEV"
+  resourceGroup_TST: "generictoolne-TST"
+  resourceGroup_SIT: "generictoolne-SIT"
+  resourceGroup_UR: "generictoolne-UG"
+  resourceGroup_UAT: "generictoolne-UAT"
+  resourceGroup_PRE: "generictoolne-PRE"
+  resourceGroup_PRD: "generictoolne-PRD"
+  functionAppName: "deploymentenginefunapp2"
+  WebAppName: "WebAppGeneric"
+  deploymentEnvironments: DEV,TST,SIT,UR,UAT,PRE,PRD
+  serviceToDeploy: functionApp,WebApp

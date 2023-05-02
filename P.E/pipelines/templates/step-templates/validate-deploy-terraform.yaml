@@ -1,0 +1,63 @@
+parameters:
+  - name: connection
+    displayName: Azure service connection
+    type: string
+  - name: deploy
+    displayName: Check if template to validate or deploy
+    type: boolean
+    default: false
+  - name: services
+    displayName: Azure service connection
+    type: string
+  - name: templates
+    displayName: Azure service connection
+    type: object
+
+steps:
+  - task: TerraformInstaller@0
+    inputs:
+      terraformVersion: 'latest'
+ 
+  - ${{ if eq(parameters.deploy, true) }}:
+    - ${{ each service in split(parameters.services, ',') }}:
+      - ${{ each template in parameters.templates }}:      
+        - task: TerraformTaskV3@3 
+          displayName: Terraform-init-${{ service }}
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/${{ template.templatePath }}/${{ service }}'
+            backendServiceArm: ${{ parameters.connection }}
+            backendAzureRmResourceGroupName: ${{ template.resourceGroupName }}
+            backendAzureRmStorageAccountName: 'terraformstatebkp'
+            backendAzureRmContainerName: 'terraform'
+            backendAzureRmKey: 'tf/terraform.tfstate'
+
+        - task: replacetokens@5
+          inputs:
+            targetFiles: '$(System.DefaultWorkingDirectory)/${{ template.templatePath }}/${{ service }}/terraform.tfvars'
+            encoding: 'auto'
+            tokenPattern: 'default'
+            writeBOM: true
+            actionOnMissing: 'warn'
+            keepToken: false
+            actionOnNoFiles: 'continue'
+            enableTransforms: false
+            enableRecursion: false
+            useLegacyPattern: false
+            enableTelemetry: true
+        
+        - task: TerraformTaskV3@3
+          displayName: Terraform-plan-${{ service }}
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/${{ template.templatePath }}/${{ service }}'
+            environmentServiceNameAzureRM: ${{ parameters.connection }}
+        - task: TerraformTaskV3@3
+          displayName: Terraform-apply-${{ service }}
+          inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/${{ template.templatePath }}/${{ service }}'
+              environmentServiceNameAzureRM: ${{ parameters.connection }}

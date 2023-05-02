@@ -1,0 +1,40 @@
+name: $(BuildID)
+
+trigger:
+  - none
+
+pool:
+  vmImage: "windows-latest"
+
+resources:
+  repositories:
+    - repository: CodeDeployment
+      name: Accelerators/DeploymentEngine
+      type: git
+      ref: features/CodeDeployment
+      
+variables:
+  - template: /Consumer-project/Variables/variables.yaml@self       
+    
+extends:
+  template: /Pipelines/Templates/common-code-deploy.yaml@CodeDeployment
+  parameters:
+    repositoryName: ${{ variables.repositoryName }}
+    solutionType: ${{ variables.solutionType }}
+    deploymentEnvironments: ${{variables.deploymentEnvironments}}
+    azureSubscriptions:
+      - azureSubscription_DEV: ${{ variables.azureSubscription_DEV }}
+        azureSubscription_TST: ${{ variables.azureSubscription_TST }}
+        azureSubscription_SIT: ${{ variables.azureSubscription_SIT }}
+        azureSubscription_UR:  ${{ variables.azureSubscription_UR }}
+        azureSubscription_UAT: ${{ variables.azureSubscription_UAT }}
+        azureSubscription_PRE: ${{ variables.azureSubscription_PRE }}
+        azureSubscription_PRD: ${{ variables.azureSubscription_PRD }}
+    deployments:
+      - zipFileName: ${{ variables.zipFileName }}
+        productName: ${{ variables.productName }}
+        project: ${{ variables.project }}
+        buildConfiguration: ${{ variables.buildConfiguration }}
+        resourceGroupName: ${{ variables.resourceGroupName }}
+        WebappName: ${{ variables.webAppName }}
+

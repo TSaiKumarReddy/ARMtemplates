@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32901.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC-Training", "POC-Training.csproj", "{BF874E8B-2B74-4AE4-BCA0-D48E2C6FDE82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF874E8B-2B74-4AE4-BCA0-D48E2C6FDE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF874E8B-2B74-4AE4-BCA0-D48E2C6FDE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF874E8B-2B74-4AE4-BCA0-D48E2C6FDE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF874E8B-2B74-4AE4-BCA0-D48E2C6FDE82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8E6EB38-7FF2-47DE-A0EA-DEB947689B79}
+	EndGlobalSection
+EndGlobal

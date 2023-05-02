@@ -1,0 +1,95 @@
+variables:
+  minimumTlsVersion: 
+  skuTier: ToBeUpdatedLater
+  accountType: 
+  appInsightsWorkspaceName: generictooldemoaiw
+  azureResourceManagerConnection: genericTool
+  costManagementName: cost-management-dashboard
+  networkResourceGroupName: generictoolne-nrg
+  storageResourceGroupName: generictoolne-srg
+  azureComponentResourceGroupName: generictoolne-acrg
+  supportsHttpsTrafficOnly: 
+  isShareSoftDeleteEnabled: 
+  service: 
+  appNamefuncappexport: 
+  regionId: UK South
+  shareSoftDeleteRetentionDays: 
+  objectID_Spn_AdministratorId: c8806487-3bfc-4f0f-9d5f-63c020e5da94
+  labIsolation: 
+  adminPassword: 
+  appPlanZoneRedundant: "false"
+  adminLogin: 
+  dailyRecurrence: 
+  networkAclsBypass: 
+  location: UK South
+  rgLocation: UK South
+  isBlobSoftDeleteEnabled: 
+  containerSoftDeleteRetentionDays: 
+  skucapacity: ToBeUpdatedLater
+  vnetName: ToBeUpdatedLater
+  skuTierfamilyDB: ToBeUpdatedLater
+  enabledForDeployment: false
+  netFrameworkVersion: 
+  appPlanSkuName: EP1
+  enableSoftDelete: true
+  databaseCollation: ToBeUpdatedLater
+  provisioningEnvironment: Dev
+  deploy: "true"
+  appNamefuncappimport: 
+  subscriptionId: 6087dada-3096-4a3f-9694-d6c821f52e1d
+  appInsightsResourceGroupName: $(servicesResourceGroupName)
+  roleIdMapping_Administrator: 00482a5a-887f-4fb3-b363-3b7fe8e74483
+  dataClassification: 
+  storageAccountName: 
+  accessTier: 
+  azureComponentToDeploy: app-insight
+  netowrkServices: app-service-plan
+  storageServices: event-topic
+  roleIdMapping_Reader: 21090545-7ca7-4776-b22c-e363652d74d2
+  appserviceplan: generictooldemoappserviceplan
+  devOpsLabName: 
+  maxSizeBytes: ToBeUpdatedLater
+  appInsightsName: generictooldemoai
+  timeZoneId: 
+  allowBlobPublicAccess: 
+  requestedBackupStorageRedundancy: ToBeUpdatedLater
+  loginSecretName: ToBeUpdatedLater
+  isContainerRestoreEnabled: 
+  templateType: arm  
+  appInsightsSubscriptionId: 6087dada-3096-4a3f-9694-d6c821f52e1d
+  templateRepositoryName: ProvisioningEngineTemplates
+  databaseEdition: ToBeUpdatedLater
+  objectID_Spn_ReaderId: c8806487-3bfc-4f0f-9d5f-63c020e5da94
+  skuName: ToBeUpdatedLater
+  allowSharedKeyAccess: 
+  isHnsEnabled: 
+  blobSoftDeleteRetentionDays: 
+  identityType: 
+  keyVaultName: ToBeUpdatedLater
+  isContainerSoftDeleteEnabled: 
+  regionPrefix: ToBeUpdatedLater
+  storageAccountNameexport: ""
+  enabledForDiskEncryption: false
+  enableRbacAuthorization: true
+  storageaccountresourceGroupName: $(storageResourceGroupName)
+  eventTopicName: generictooleventtopic
+  subnetNameFe: ToBeUpdatedLater
+  storageAccountNameimport: ""
+  databaseServiceObjectiveName: ToBeUpdatedLater
+  passwordSecretName: ToBeUpdatedLater
+  environmentName: 
+  environment: 
+  roleIdMapping_Contributor: f25e0fa2-a7c8-4377-a976-54943a77a395
+  enabledForTemplateDeployment: true
+  networkAclsDefaultAction: 
+  softDeleteRetentionInDays: 90
+  name: ToBeUpdatedLater
+  criticality: 
+  changeFeed: 
+  applicationName: ToBeUpdatedLater
+  appPlanName: generictooldemoappserviceplan
+  isVersioningEnabled: 
+  objectID_Spn_ContributorId: c8806487-3bfc-4f0f-9d5f-63c020e5da94
+  instance: ToBeUpdatedLater
+  serviceCode: DevOps
+  kind: 

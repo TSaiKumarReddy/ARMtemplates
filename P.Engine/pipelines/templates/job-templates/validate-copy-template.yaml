@@ -1,0 +1,51 @@
+parameters:
+  - name: templates
+    type: object
+  - name: deploy
+    displayName: Check if template to validate or deploy
+    type: boolean
+    default: false
+  - name: services    
+    type: string
+  - name: repositoryToCheckout    
+    type: string
+
+
+
+jobs:
+  - job: Validate
+    steps:
+      - checkout: ${{ parameters.repositoryToCheckout }}
+      - ${{ each service in split(parameters.services, ',') }}:
+        - ${{ each template in parameters.templates }}:
+            - template: /pipelines/templates/step-templates/validate-deploy-template.yaml
+              parameters:
+                deploy: ${{ parameters.deploy }}
+                templateName: ${{ service }}
+                templatePath: $(Agent.BuildDirectory)/s/${{ template.templatePath }}
+                templateType: ${{ template.templateType }}
+                location: $(location)
+                resourceGroup: ${{ template.resourceGroupName }}
+                subscriptionId: ${{ template.subscriptionId }}
+                connection: $(azureResourceManagerConnection)
+                services: ${{ service }}
+                templates: ${{ parameters.templates }}
+
+            - task: CopyFiles@2
+              displayName: Copy Templates
+              inputs:
+                SourceFolder: $(Agent.BuildDirectory)/s/${{ template.templatePath }}
+                TargetFolder: $(Build.ArtifactStagingDirectory)
+                Contents: |
+                  ${{ service }}.json
+                  ${{ service }}.parameters.json
+                  !**\*.yaml
+      
+      
+      - task: PublishPipelineArtifact@1
+        displayName: Publish Artifacts
+        inputs:
+          targetPath: $(Build.ArtifactStagingDirectory)
+          artifactName: template
+          parallel: true
+          parallelCount: 8

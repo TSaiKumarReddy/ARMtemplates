@@ -1,0 +1,159 @@
+parameters:
+  - name: forceDevDeploy
+    displayName: Force deployment to DEV
+    type: boolean
+    default: false
+  - name: templates
+    displayName: Diffrent Templates
+    type: object
+  - name: deploy
+    displayName: Check if template to validate or deploy
+    type: boolean
+  - name: runScript
+    displayName: Do you want to run only script ?
+    type: boolean
+    default: false
+  - name: servicesToDeploy
+    displayName: Check if template to validate or deploy
+    type: string
+  - name: repositoryName
+    type: string
+  - name: provisioningEnvironment
+    type: string
+  - name: preDeployScriptsList
+    type: object
+    default: []
+  - name: postDeployScriptsList
+    type: object
+    default: []
+  - name: executePowershell
+    type: boolean
+    default: false
+  - name: scriptsList
+    type: object
+    default: []
+  - name: templateType
+    type: string
+
+stages:
+  
+  - ${{ if and(eq(parameters.runScript, false), ne(parameters.templatetype, 'terraform') )}}:
+  
+    - stage: Validate
+      jobs:
+        - template: job-templates/validate-copy-template.yaml
+          parameters:
+            services: ${{ parameters.servicesToDeploy }}
+            templates: ${{ parameters.templates }}
+            repositoryToCheckout: ${{ parameters.repositoryName }}
+            deploy: true
+
+    - ${{ if eq(parameters.deploy, true) }}:
+        - stage: Provisioning_${{ parameters.provisioningEnvironment }}
+          jobs:
+            - deployment: Deploy${{ parameters.provisioningEnvironment }}
+              environment: ${{ parameters.provisioningEnvironment }}
+              workspace:
+                clean: all
+              timeoutInMinutes: 90
+              strategy:
+                runOnce:
+                  deploy:
+                    steps:
+                      - checkout: ${{ parameters.repositoryName }}
+                      - ${{ if and(eq(parameters.executePowershell, true), ne(length(parameters.preDeployScriptsList), 0) ) }}:
+                        - template: step-templates/execute-powershell-template.yaml
+                          parameters:
+                            azureResourceManagerConnection: ${{ variables.azureResourceManagerConnection }}
+                            scriptsList: ${{ parameters.preDeployScriptsList }}
+                            
+
+
+                      - template: step-templates/validate-deploy-template.yaml
+                        parameters:
+                          deploy: ${{ parameters.deploy }}
+                          templates: ${{ parameters.templates }}
+                          services: ${{ parameters.servicesToDeploy }}
+                          templateName: ${{ parameters.servicesToDeploy }}
+                          templatePath: $(Pipeline.Workspace)/template
+                          templateType: ${{ parameters.servicesToDeploy }}
+                          location: $(location)
+                          resourceGroup: ${{ parameters.servicesToDeploy }}
+                          connection: $(azureResourceManagerConnection)
+                          subscriptionId: ${{ parameters.servicesToDeploy }}
+                      
+                      - ${{ if and(eq(parameters.executePowershell, true), ne(length(parameters.postDeployScriptsList), 0) ) }}:
+                        - template: step-templates/execute-powershell-template.yaml
+                          parameters:
+                            azureResourceManagerConnection: ${{ variables.azureResourceManagerConnection }}
+                            scriptsList: ${{ parameters.postDeployScriptsList }}
+                            
+  - ${{ if and(eq(parameters.runScript, true), ne(parameters.templatetype, 'terraform') )}}:
+    
+    - stage: Initialise
+      jobs:
+        - job: Initialise
+          steps:
+            - task: CopyFiles@2
+              displayName: Create copy of source files
+              inputs:
+                SourceFolder: $(Build.SourcesDirectory)
+                TargetFolder: $(Build.ArtifactStagingDirectory)
+
+            - task: PublishPipelineArtifact@1
+              displayName: Publish source files as artifacts
+              inputs:
+                targetPath: $(Build.ArtifactStagingDirectory)
+                artifactName: consumerScripts
+                parallel: true
+                parallelCount: 8
+
+    - stage: Run 
+      displayName: RunPowerShell
+      jobs:
+        - job: RunScript
+          steps:
+            - checkout: ${{ parameters.repositoryName }}
+            - template: step-templates/execute-powershell-template.yaml
+              parameters:
+                azureResourceManagerConnection: ${{ variables.azureResourceManagerConnection }}
+                scriptsList: ${{ parameters.scriptsList }}
+  
+  - ${{ if and(eq(parameters.runScript, false), eq(parameters.templatetype, 'terraform') )}}:
+
+    - stage: Provisioning_${{ parameters.provisioningEnvironment }}
+      jobs:
+        - deployment: Deploy${{ parameters.provisioningEnvironment }}
+          environment: ${{ parameters.provisioningEnvironment }}
+          workspace:
+            clean: all
+          timeoutInMinutes: 90
+          strategy:
+            runOnce:
+              deploy:
+                steps:
+                  - checkout: ${{ parameters.repositoryName }}
+                  - ${{ if and(eq(parameters.executePowershell, true), ne(length(parameters.preDeployScriptsList), 0) ) }}:
+                    - template: step-templates/execute-powershell-template.yaml
+                      parameters:
+                        azureResourceManagerConnection: ${{ variables.azureResourceManagerConnection }}
+                        scriptsList: ${{ parameters.preDeployScriptsList }}
+
+                  - template: step-templates/validate-deploy-terraform.yaml
+                    parameters:
+                      deploy: ${{ parameters.deploy }}
+                      templates: ${{ parameters.templates }}
+                      services: ${{ parameters.servicesToDeploy }}
+                      connection: $(azureResourceManagerConnection)
+                  
+                  - ${{ if and(eq(parameters.executePowershell, true), ne(length(parameters.postDeployScriptsList), 0) ) }}:
+                    - template: step-templates/execute-powershell-template.yaml
+                      parameters:
+                        azureResourceManagerConnection: ${{ variables.azureResourceManagerConnection }}
+                        scriptsList: ${{ parameters.postDeployScriptsList }}
+
+
+
+
+        
+

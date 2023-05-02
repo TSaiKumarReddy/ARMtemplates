@@ -1,0 +1,18 @@
+variables:
+  repositoryName: DeploymentEngine
+  solutionType: ToBeUpdatedLater
+  deploymentEnvironments: DEV,TST,SIT,UR,UAT,PRE,PRD
+  zipFileName: "integration.zip"
+  productName: "BuildArtifacts"
+  project: "POC-Training"
+  buildConfiguration: "Release"
+  azureSubscription_DEV: "genericTool"
+  azureSubscription_TST: "genericTool"
+  azureSubscription_SIT: "genericTool"
+  azureSubscription_UR: "genericTool"
+  azureSubscription_UAT: "genericTool"
+  azureSubscription_PRE: "genericTool"
+  azureSubscription_PRD: "genericTool"
+  resourceGroupName: ToBeUpdatedLater
+  webAppName: ToBeUpdatedLater
+ 

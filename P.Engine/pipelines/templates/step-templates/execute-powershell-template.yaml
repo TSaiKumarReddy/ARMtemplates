@@ -1,0 +1,38 @@
+parameters:
+- name: azureResourceManagerConnection
+  type: string
+- name: scriptsList
+  type: object
+  default: []
+
+
+
+steps:
+- ${{ each script in parameters.scriptsList }}:
+  - ${{ if or(eq(script.Type, ''), eq(script.Type, 'AzurePowerShell')) }}:
+    - task: AzurePowerShell@5
+      displayName: AzurePowerShell :'${{ script.displayName }}'
+      inputs:
+        azureSubscription: '${{ parameters.azureResourceManagerConnection }}'
+        ScriptType: 'FilePath'
+        ScriptPath: '${{ script.scriptPath }}'
+        ScriptArguments: '${{ script.scriptArguments }}'
+        azurePowerShellVersion: 'LatestVersion'
+        
+
+  - ${{ if or(eq(script.Type, 'PowerShell'), eq(script.Type, 'Core')) }}:
+    - task: PowerShell@2
+      displayName: 'Powershell: ${{ script.displayName }}'
+      inputs:
+        filePath: '${{ script.scriptPath }}'
+        arguments: '${{ script.scriptArguments }}'
+  
+  - ${{ if eq(script.Type, 'AzureCLI') }}:
+    - task: AzureCLI@2
+      displayName: 'Azure CLI: ${{ script.displayName }}'
+      inputs:
+        azureSubscription: '${{ parameters.azureResourceManagerConnection }}'
+        scriptType: 'ps'
+        scriptLocation: 'scriptPath'
+        scriptPath: '${{ script.scriptPath }}'
+        arguments: '${{ script.scriptArguments }}'

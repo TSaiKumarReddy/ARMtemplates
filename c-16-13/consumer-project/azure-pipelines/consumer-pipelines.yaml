@@ -1,0 +1,71 @@
+name: $(BuildID)
+    
+trigger:
+  batch: true
+  branches:
+    include:
+    - 'master'
+
+pool:
+  vmImage: "windows-latest"
+
+resources:
+  repositories:
+    - repository: ProvisioningEngine
+      name: Accelerators/ProvisioningEngine
+      type: git
+      ref: features/resourceGroupSeperation
+    
+    #- repository: ConsumerTemplateRepo
+     # name: Cutsomer/CustomerTemplates
+      #type: git
+      # testing tag
+      #ref: master
+
+    - repository: ProvisioningEngineTemplates
+      name: Accelerators/ProvisioningEngineTemplates
+      type: git
+      ref: master
+      
+
+variables:
+  - template: /consumer-project/azure-pipelines/vars/variables.yaml@self
+  - template: /consumer-project/azure-pipelines/vars/common.yaml@self
+      
+
+extends:
+  template: /pipelines/templates/common-infra-deploy.yaml@ProvisioningEngine
+  parameters:
+    deploy: ${{ variables.deploy }}
+    runScript: false
+    azureComponentToDeploy: ${{ variables.azureComponentToDeploy }}
+    netowrkServices: ${{ variables.netowrkServices }}
+    storageServices: ${{ variables.storageServices }}
+    repositoryName: ${{ variables.templateRepositoryName }}
+    provisioningEnvironment: ${{ variables.provisioningEnvironment }}
+    scriptsList: 
+    #- displayName: 'TestPowershell1'
+    #  Type: PowerShell
+    #  scriptPath: 'scripts/powershell/test.ps1'
+    #  scriptArguments: ''
+    #  workingDirectory: '$(Pipeline.Workspace)/scripts/powershell/test.ps1'
+    templateType: ${{ variables.templateType }}
+    #preDeployScriptsList: 
+    #- displayName: 'TestPowershell1'
+    #  Type: PowerShell
+    #  scriptPath: 'scripts/powershell/test.ps1'
+    #  scriptArguments: ''
+    #  workingDirectory: '$(Pipeline.Workspace)/scripts/powershell/test.ps1'
+    templates:
+      - templatePath: /templates/${{ variables.templateType }}-templates
+        templateType: ${{ variables.templateType }}
+        azureComponentResourceGroupName: $(azureComponentResourceGroupName)
+        networkResourceGroupName: $(networkResourceGroupName)
+        storageResourceGroupName: $(storageResourceGroupName)
+        subscriptionId: $(subscriptionId)
+    # postDeployScriptsList: 
+    # - displayName: 'TestPowershell1'
+    #   Type: PowerShell
+    #   scriptPath: 'scripts/powershell/test.ps1'
+    #   scriptArguments: ''
+    #   workingDirectory: '$(Pipeline.Workspace)/scripts/powershell/test.ps1'

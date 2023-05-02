@@ -1,0 +1,109 @@
+variables:
+  azureResourceManagerConnection: ToBeUpdatedLater
+  subscriptionId: ToBeUpdatedLater
+  location: ToBeUpdatedLater
+  resourceGroupName: ToBeUpdatedLater
+  rgLocation: ToBeUpdatedLater
+  serviceCode: ToBeUpdatedLater
+  deploy: ToBeUpdatedLater
+  templateType: ToBeUpdatedLater
+  servicesToDeploy: ToBeUpdatedLater
+  templateRepositoryName: ToBeUpdatedLater
+  provisioningEnvironment: ToBeUpdatedLater
+
+  #AppService
+  appPlanSkuName: ToBeUpdatedLater
+  appPlanZoneRedundant: ToBeUpdatedLater
+  appPlanName: ToBeUpdatedLater
+
+  #AppInsight
+  appInsightsName: ToBeUpdatedLater
+  appInsightsWorkspaceName: ToBeUpdatedLater
+
+  #DevTestLab
+  name: ToBeUpdatedLater
+  regionId: ToBeUpdatedLater
+  identityType: ToBeUpdatedLater
+  labIsolation: ToBeUpdatedLater
+  timeZoneId: ToBeUpdatedLater
+  dailyRecurrence: ToBeUpdatedLater
+
+  #KeyVault
+  keyVaultName: ToBeUpdatedLater
+  objectID_Spn_AdministratorId: c8806487-3bfc-4f0f-9d5f-63c020e5da94 #ObjectID of SPN fetch from AD
+  objectID_Spn_ContributorId: c8806487-3bfc-4f0f-9d5f-63c020e5da94
+  objectID_Spn_ReaderId: c8806487-3bfc-4f0f-9d5f-63c020e5da94
+  enabledForDeployment: false
+  enabledForDiskEncryption: false
+  enabledForTemplateDeployment: true
+  enableSoftDelete: true
+  softDeleteRetentionInDays: 90
+  enableRbacAuthorization: true
+  roleIdMapping_Administrator: 00482a5a-887f-4fb3-b363-3b7fe8e74483 #DefaultRoleMappingID fetched from KV Json
+  roleIdMapping_Contributor: f25e0fa2-a7c8-4377-a976-54943a77a395
+  roleIdMapping_Reader: 21090545-7ca7-4776-b22c-e363652d74d2
+
+  #EventTopic
+  eventTopicName: ToBeUpdatedLater
+
+  #StorageAccount
+  storageAccountName: ToBeUpdatedLater
+  accountType: ToBeUpdatedLater
+  kind: ToBeUpdatedLater
+  accessTier: ToBeUpdatedLater
+  minimumTlsVersion: ToBeUpdatedLater
+  supportsHttpsTrafficOnly: ToBeUpdatedLater
+  allowBlobPublicAccess: ToBeUpdatedLater
+  allowSharedKeyAccess: ToBeUpdatedLater
+  networkAclsBypass: ToBeUpdatedLater
+  networkAclsDefaultAction: ToBeUpdatedLater
+  isContainerRestoreEnabled: ToBeUpdatedLater
+  isBlobSoftDeleteEnabled: ToBeUpdatedLater
+  blobSoftDeleteRetentionDays: ToBeUpdatedLater
+  isContainerSoftDeleteEnabled: ToBeUpdatedLater
+  containerSoftDeleteRetentionDays: ToBeUpdatedLater
+  changeFeed: ToBeUpdatedLater
+  isVersioningEnabled: ToBeUpdatedLater
+  isShareSoftDeleteEnabled: ToBeUpdatedLater
+  shareSoftDeleteRetentionDays: ToBeUpdatedLater
+  isHnsEnabled: ToBeUpdatedLater
+
+  #SQL Server
+
+  applicationName: ToBeUpdatedLater
+  databaseCollation: ToBeUpdatedLater
+  databaseEdition: ToBeUpdatedLater
+  databaseServiceObjectiveName: ToBeUpdatedLater
+  environmentName: ToBeUpdatedLater
+  instance: ToBeUpdatedLater
+  #kind: ToBeUpdatedLater
+  loginSecretName: ToBeUpdatedLater
+  maxSizeBytes: ToBeUpdatedLater
+  passwordSecretName: ToBeUpdatedLater
+  regionPrefix: ToBeUpdatedLater
+  requestedBackupStorageRedundancy: ToBeUpdatedLater
+  skucapacity: ToBeUpdatedLater
+  skuName: ToBeUpdatedLater
+  skuTier: ToBeUpdatedLater
+  skuTierfamilyDB: ToBeUpdatedLater
+
+  #Function APP
+  resourceGroup: ToBeUpdatedLater
+  adminLogin: ToBeUpdatedLater
+  adminPassword: ToBeUpdatedLater
+  netFrameworkVersion: ToBeUpdatedLater
+  #appInsightsName: ToBeUpdatedLater
+  appInsightsSubscriptionId: ToBeUpdatedLater
+  appInsightsResourceGroupName: ToBeUpdatedLater
+  appNamefuncappexport: ToBeUpdatedLater
+  appNamefuncappimport: ToBeUpdatedLater
+  appserviceplan: ToBeUpdatedLater
+  storageAccountNameexport: ToBeUpdatedLater
+  storageAccountNameimport: ToBeUpdatedLater
+  storageaccountresourceGroupName: ToBeUpdatedLater
+  vnetName: ToBeUpdatedLater
+  subnetNameFe: ToBeUpdatedLater
+  dataClassification: ToBeUpdatedLater
+  service: ToBeUpdatedLater
+  criticality: ToBeUpdatedLater
+  environment: ToBeUpdatedLater
